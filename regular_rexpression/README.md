@@ -33,7 +33,7 @@ class. For example, `\d` represents anything that is not a digit.
 
 ### Special Characters
 
-- `.`: Any character except line break/
+- `.`: Any character except line break.
 - `\`: `\` followed by any of `[\^$.?\@*+(){}` suppress their special meaning.
 
 ## Quantifiers
