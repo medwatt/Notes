@@ -23,7 +23,7 @@ class. For example, `\d` represents anything that is not a digit.
 | `\n`   | Line feed character       |
 | `\r\n` | Line separator on Windows |
 
-### Custom Character Classs
+### Custom Character Classes
 
 | Class     | Description                                                                 | Example                                 |
 | ---       | ---                                                                         | --                                      |
