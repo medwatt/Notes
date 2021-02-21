@@ -55,8 +55,8 @@ class. For example, `\d` represents anything that is not a digit.
 | `$`    | End of string or end of line depending on multiline mode.                                             |
 | `\A`   | Beginning of string. Matches a position rather than a character. Never matches after line breaks.     |
 | `\z`   | Very end of the string. Matches a position rather than a character. Never matches before line breaks. |
-| `\b`   | Word boundary (position where one side only is an ASCII letter, digit or underscore)                  |
-| `\Q…\E`   | matches the characters between \Q and \E literally, suppressing the eaning of special characters |
+| `\b`   | Word boundary (position where one side only is an ASCII letter, digit or underscore) .                |
+| `\Q…\E`   | Matches the characters between \Q and \E literally, suppressing the meaning of special characters. |
 
 ## Logic
 
