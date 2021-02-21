@@ -43,7 +43,7 @@ class. For example, `\d` represents anything that is not a digit.
 | `+`        | One or more. The `+` is "greedy".                                         |
 | `*`        | Zero or more times. The `*` is "greedy".                                  |
 | `?`        | Once or none. `?` makes a quantifier lazy. `??` makes `?` lazy.           |
-| `{3}`      | Exactly three times                                                       |
+| `{3}`      | Exactly three times.                                                      |
 | `{2,4}`    | Two to four times. It is greedy by default. Append `?` to make it lazy.   |
 | `{3,}`     | Three or more times. It is greedy by default. Append `?` to make it lazy. |
 
