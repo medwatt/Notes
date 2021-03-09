@@ -74,7 +74,7 @@ Consider `s1 = aaabbb`, `s2 = aaaa1bbbb`,  and `s3 = aaaaa123bbbbb`.
 
 | Character | Description              |
 | ---       | ---                      |
-| `|`       | Alternation / OR operand |
+| `\|`      | Alternation / OR operand |
 | `(…)`     | Capturing group          |
 | `(?: … )` | Non-capturing group      |
 | `\1`      | Contents of Group 1      |
