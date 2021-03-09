@@ -11,7 +11,7 @@ Consider the string `AAA 123 BBB`.
 | Class | Description                                                              | Example                        |
 | ---   | ---                                                                      | --                             |
 | `\d`  | One digit from 0 to 9                                                    | `\d+` matches `123`            |
-| `\w`  | Word character: ASCII letter, digit, or underscore                       | `\w+` matches `AAA` and `BBB`` |
+| `\w`  | Word character: ASCII letter, digit, or underscore                       | `\w+` matches `AAA` and `BBB`  |
 | `\s`  | Whitespace character: space, tab, newline, carriage return, vertical tab | `\s` matches the two spaces    |
 
 An upper case version of any of the above classes represents the complement of the
