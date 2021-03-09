@@ -1,104 +1,117 @@
 # Regular Expressions
 
-## Character Classes
+## PERL Syntax
 
-### Commin Character Classes
+### Character Classes
 
-| Class | Description                                                               |
-| ---   | ---                                                                       |
-| `\d`  | One digit from 0 to 9.                                                    |
-| `\w`  | Word character: ASCII letter, digit, or underscore.                       |
-| `\s`  | Whitespace character: space, tab, newline, carriage return, vertical tab. |
+#### Common Character Classes
 
-An upper case version of any of those classes represents the complement of the
-class. For example, `\d` represents anything that is not a digit.
+Consider the string `AAA 123 BBB`.
 
-### White-Space Classes
+| Class | Description                                                              | Example                        |
+| ---   | ---                                                                      | --                             |
+| `\d`  | One digit from 0 to 9                                                    | `\d+` matches `123`            |
+| `\w`  | Word character: ASCII letter, digit, or underscore                       | `\w+` matches `AAA` and `BBB`` |
+| `\s`  | Whitespace character: space, tab, newline, carriage return, vertical tab | `\s` matches the two spaces    |
+
+An upper case version of any of the above classes represents the complement of the
+class. For instance, `\D` represents anything that is not a digit.
+
+#### White-Space Classes
 
 | Class  | Description               |
 | ---    | ---                       |
-| `\t`   | Tab                       |
-| `\v`   | Vertical tab              |
+| `\t`   | Tab character             |
 | `\r`   | Carriage return character |
 | `\n`   | Line feed character       |
 | `\r\n` | Line separator on Windows |
 
-### Custom Character Classes
+#### Custom Character Classs
 
-| Class     | Description                                                                 | Example                                 |
-| ---       | ---                                                                         | --                                      |
-| `[…]`     | Starts a character class.                                                   | `[m-q]` Any lowercase letter fro m to q |
-| `[^…]`    | Negates a character class.                                                  | `[^\w]` Any non-word character          |
-| `[…-[…]]` | One character that is in those on the left, but not in the subtracted class | `[a-z-[aeiou]]` Any lowercase consonant |
+| Class     | Description                                                                 | Example                                            |
+| ---       | ---                                                                         | --                                                 |
+| `[…]`     | Starts a character class.                                                   | `[m-q]` matches any lowercase letter fro m to q    |
+| `[^…]`    | Negates a character class.                                                  | `[^\d\s]` matches anything that is in `\d` or `\s` |
+| `[…-[…]]` | One character that is in those on the left, but not in the subtracted class | `[a-z-[aeiou]]` matches any lowercase consonant    |
 
-### Special Characters
+#### Special Characters
 
-- `.`: Any character except line break.
-- `\`: `\` followed by any of `[\^$.?\@*+(){}` suppress their special meaning.
+- `.`: Matches any character except a line break/
+- `\`: The characters `. + * ? ^ $ ( ) [ ] { } \ |` have special meanings when used in a pattern.  `\` works as an escape character and when followed by any of `. + * ? ^ $ ( ) [ ] { } \ |` suppresses their special meaning. That is, to match `+`, we use `\+` in the pattern string.
 
-## Quantifiers
+#### Anchors
 
-| Quantifier | Description                                                               |
-| ---        | ---                                                                       |
-| `+`        | One or more. The `+` is "greedy".                                         |
-| `*`        | Zero or more times. The `*` is "greedy".                                  |
-| `?`        | Once or none. `?` makes a quantifier lazy. `??` makes `?` lazy.           |
-| `{3}`      | Exactly three times.                                                      |
-| `{2,4}`    | Two to four times. It is greedy by default. Append `?` to make it lazy.   |
-| `{3,}`     | Three or more times. It is greedy by default. Append `?` to make it lazy. |
+Consider the multiline string below:
 
-## Anchors
+```
+this is the first line and this is where it ends
+this is the second line
+this is the the third line
+```
 
-| Anchor | Description                                                                                           |
-| ---    | ---                                                                                                   |
-| `^`    | Start of string or start of line depending on multiline mode.                                         |
-| `$`    | End of string or end of line depending on multiline mode.                                             |
-| `\A`   | Beginning of string. Matches a position rather than a character. Never matches after line breaks.     |
-| `\z`   | Very end of the string. Matches a position rather than a character. Never matches before line breaks. |
-| `\b`   | Word boundary (position where one side only is an ASCII letter, digit or underscore) .                |
-| `\Q…\E`   | Matches the characters between \Q and \E literally, suppressing the meaning of special characters. |
+| Anchor | Description                                                               | Example                                                       |
+| ---    | ---                                                                       | --                                                            |
+| `^`    | Start of **string** or start of **line** depending on **multiline** mode. | `^this` matches `this` at the beginning of lines 1, 2,  and 3 |
+| `$`    | End of **string** or end of **line** depending on **multiline** mode.     | `line$` matches `line` at the end of lines 2 and 3            |
+| `\A`   | Beginning of **string**. Never matches after line breaks.                 | `\A` matches `this` at the beginning of line 1                |
+| `\z`   | Very end of the **string**. Never matches before line breaks.             | `line\z` matches `line` at the end of line 3                  |
+| `\b`   | Word boundary                                                             | `\bis\b` matches all `is` that are flanked by spaces          |
 
-## Logic
+### Quantifiers
+
+Consider `s1 = aaabbb`, `s2 = aaaa1bbbb`,  and `s3 = aaaaa123bbbbb`.
+
+| Quantifier | Description                                                               | Example                                   |
+| ---        | ---                                                                       | --                                        |
+| `+`        | One or more. The `+` is "greedy" (matches the longest possible).          | `a+\d+b+` matches `s2` and `s3`           |
+| `*`        | Zero or more times. The `*` is "greedy".                                  | `a+\d*b+` matches all three strings       |
+| `?`        | Once or none. `?` makes a quantifier "lazy".                              | `a+\d?b+` matches `s1` and `s2`           |
+| `{3}`      | Exactly three times                                                       | `^a{3}\d*b{3}$` matches only `s1`         |
+| `{2,4}`    | Two to four times. It is greedy by default. Append `?` to make it lazy.   | `^a{3,4}\d*b{3,4}$` matches `s1` and `s2` |
+| `{3,}`     | Three or more times. It is greedy by default. Append `?` to make it lazy. | `^a{4,}\d*b{4,}$` matches `s2` and `s3`   |
+
+### Logic
 
 | Character | Description              |
 | ---       | ---                      |
-| `@`       | Alternation / OR operand |
+| `|`       | Alternation / OR operand |
 | `(…)`     | Capturing group          |
+| `(?: … )` | Non-capturing group      |
 | `\1`      | Contents of Group 1      |
 | `\2`      | Contents of Group 2      |
-| `(?: … )` | Non-capturing group      |
 
+Consider the string `the ant is in the apple`. The pattern `a(nt|pple)` will
+match both `ant` and `apple`. Surrounding a pattern with round brackets tells
+the regex engine to capture (save) the matched string. The content of the
+captured string can be used in matching or replacement by using the
+back-reference operator `\num`, where `num` is the index of the captured group.
+The default behaviour of round brackets is to capture the matched string. We
+can tell the regex engine not to save the matched string by using `(?: …)`.
 
-## Inline modifiers
+### Inline modifiers
 
 | Character | Description                                                                                                   |
 | ---       | ---                                                                                                           |
 | `(?i)`    | Turn on case insensitivity for the remainder of the regular expression. `(?-i)` turns off case insensitivity. |
-| `(?s)`    | Turn on "dot matches newline" for the remainder of the regular expression.                                     |
+| `(?s)`    | Turn on "dot matches newline" for the remainder of the regular expression.                                    |
 
-## Atomic Grouping
-
-- `(?>regex)`: Atomic groups prevent the regex engine from backtracking back
-  into the group (forcing the group to discard part of its match) after a match
-  has been found for the group.
-
-## Lookarounds
+### Lookarounds
 
 | Character | Description                    | Example                                            |
 | ---       | ---                            | ---                                                |
-| `(?=…)`   | Zero-width positive lookahead  | `t(?=s)`      Matches the second `t` in `streets`  |
-| `(?<=…)`  | Zero-width positive lookbehind | `t(?!s)`      Matches the first `t` in `streets`.  |
-| `(?!…)`   | Zero-width negative lookahead  | `(?<=s)t`     Matches the first `t` in `streets`.  |
-| `(?<!…)`  | Zero-width negative lookbehind | `(?<!s)t`     Matches the second `t` in `streets`. |
+| `(?=…)`   | Zero-width positive lookahead  | `t(?=s)`      matches the second `t` in `streets`  |
+| `(?<=…)`  | Zero-width positive lookbehind | `t(?<=s)`     matches the first `t` in `streets`.  |
+| `(?!…)`   | Zero-width negative lookahead  | `(?!s)t`      matches the first `t` in `streets`.  |
+| `(?<!…)`  | Zero-width negative lookbehind | `(?<!s)t`     matches the second `t` in `streets`. |
 
-## Conditionals
+### Other Syntax
 
-| Character               | Description |
-| ---                     | ---         |
-| `(?(?=regex)then@else)` |             |
-| `(?(1)then@else)`       |             |
+| Character | Description                                                                                      |
+| ---       | ---                                                                                              |
+| `\Q…\E`   | matches the characters between \Q and \E literally, suppressing the eaning of special characters |
 
-# Vim Syntax
+
+## Vim Syntax
 
 | Perl          | Magic                       | Very Magic                 | Description                                   |
 | ---           | ---                         | ---                        | ---                                           |
