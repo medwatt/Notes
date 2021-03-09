@@ -14,7 +14,7 @@ Consider the string `AAA 123 BBB`.
 | `\w`  | Word character: ASCII letter, digit, or underscore                       | `\w+` matches `AAA` and `BBB`  |
 | `\s`  | Whitespace character: space, tab, newline, carriage return, vertical tab | `\s` matches the two spaces    |
 
-An upper case version of any of the above classes represents the complement of the
+An uppercase version of any of the above classes represents the complement of the
 class. For instance, `\D` represents anything that is not a digit.
 
 #### White-Space Classes
