@@ -11,7 +11,7 @@ def all_construct(target, word_bank):
         if len(target) >= len(word) and target[: len(word)] == word:
             suffix = target[len(word) :]
             suffix_ways = all_construct(suffix, word_bank)
-            target_ways = [way + [word] for way in suffix_ways]
+            target_ways = [[word] + way for way in suffix_ways]
             if target_ways:
                 result.extend(target_ways)
     return result
@@ -31,7 +31,7 @@ def all_construct(target, word_bank):
             if len(target) >= len(word) and target[: len(word)] == word:
                 suffix = target[len(word) :]
                 suffix_ways = helper(suffix, word_bank)
-                target_ways = [way + [word] for way in suffix_ways]
+                target_ways = [[word] + way for way in suffix_ways]
                 if target_ways:
                     result.extend(target_ways)
         memo[target] = result
