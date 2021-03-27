@@ -1,19 +1,26 @@
-###############
-## Fibonacci ##
-###############
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# =============================================================================
+# Created By   : medwatt
+# Description  : Calculating the nth Fibonacci number
+# =============================================================================
+from time_it import timed
 
 ### Brute-Force
-def fib(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        return fib(n - 1) + fib(n - 2)
+@timed
+def fib_0(n):
+
+    def helper(n):
+        if n <= 2:
+            return 1
+        else:
+            return helper(n - 1) + helper(n - 2)
+    return helper(n)
 
 
 ### Memoized
-def fib(n):
+@timed
+def fib_1(n):
     memo = {0: 0, 1: 1}
 
     def helper(n):
@@ -25,7 +32,8 @@ def fib(n):
 
 
 ### Tabulation
-def fib(n):
+@timed
+def fib_2(n):
     table = [0] * (n + 1)
     table[1] = 1
     for i in range(n - 1):
@@ -33,3 +41,11 @@ def fib(n):
         table[i + 2] += table[i]
     table[-1] += table[-2]
     return table[-1]
+
+if __name__ == "__main__":
+    # input
+    n = 30
+    # print result
+    print("Brute Force:\tres = {}, time = {}".format(*fib_0(n)))
+    print("Memorized:\tres = {}, time = {}".format(*fib_1(n)))
+    print("Tabular:\tres = {}, time = {}".format(*fib_2(n)))
