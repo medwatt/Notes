@@ -15,6 +15,7 @@ def fib_0(n):
             return 1
         else:
             return helper(n - 1) + helper(n - 2)
+
     return helper(n)
 
 
