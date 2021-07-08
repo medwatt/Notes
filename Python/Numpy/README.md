@@ -1,24 +1,3 @@
----
-title: numpy
-author: Mohamed Watfa
-date: 28.03.21
-numbersections: true
-lang: en-GB
-# Format
-documentclass: report
-geometry: b5paper, left=15mm, right=15mm, top=10mm, bottom=10mm, includefoot
-mainfont: Latin Modern Roman
-monofont: Iosevka Fixed
-fontsize: 11pt
-linestretch: 1.2
-# TOC
-toc: true
-toc_depth: 2
-# OTHERS
-pandoc-minted:
-    language: python
-...
-
 # Arrays
 
 We first need to **import** NumPy:
