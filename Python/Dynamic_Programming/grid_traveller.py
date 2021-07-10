@@ -21,9 +21,6 @@ def grid_traveller(m, n):
         key = f"{m},{n}"
         if key in memo:
             return memo[key]
-        key = f"{n},{m}"
-        if key in memo:
-            return memo[key]
         memo[key] = helper(m - 1, n) + helper(m, n - 1)
         return memo[key]
 
