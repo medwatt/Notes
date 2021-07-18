@@ -776,3 +776,122 @@ from numpy import linalg
 | `linalg.lstsq(a, b)`    | Return the least-squares solution to a linear matrix equation.        |
 | `linalg.inv(a)`         | Compute the (multiplicative) inverse of a matrix.                     |
 | `linalg.pinv(a)`        | Compute the (Moore-Penrose) pseudo-inverse of a matrix.               |
+
+## Einsum function
+
+The
+[`np.einsum`](https://numpy.org/doc/stable/reference/generated/numpy.einsum.html)
+function is another way to specify operations on NumPy arrays using the
+[Einstein summation
+convention](https://en.wikipedia.org/wiki/Einstein_notation). The general
+syntax is `np.einsum(signature_string, *operands)`. The best way to understand
+how it works is through examples.
+
+### Summing
+
+```python
+A = np.array([1, 2, 3, 4, 5])
+np.sum(A) # => 15
+np.einsum("i -> ", A)
+```
+
+The `signature_string` has two halves separated by `->`. The axes of the input
+arrays go on the left-hand side, while the axes of the resultant array go on
+the right-hand side. If there is more than one input array, we separate the
+axes with commas.
+
+In the above example, the array `A` has a single axis. Let's call that axis `i`.
+Summing the elements of an array reduces the dimension by 1. Therefore, by
+omitting the label of the axis on the right-hand side string, we're telling
+`einsum` to sum along that axis.
+
+The example below should make things more clear.
+
+```python
+B = np.array([[1, 2], [3, 4]])
+
+# sum across axis 0
+np.sum(B, axis=0)    # => [4, 6]
+np.einsum("ij -> j") # => [4, 6]
+
+# sum across axis 1
+np.sum(B, axis=1)    # => [3, 7]
+np.einsum("ij -> i") # => [3, 7]
+
+# sum across axis 0 and then axis 1
+np.sum(B, axis=0).sum() # => 10
+np.einsum("ij -> ")     # => 10
+```
+
+### Multiplying
+
+By omitting an axis label from the right-hand side string, we're asking
+`einsum` to sum along that axis. In a similar way, by repeating an axis label
+in the left-hand side string of two arrays, we're asking `einsum` to multiply
+these two axes.
+
+```python
+A = np.array([[1, 2], [3, 4]])  # shape = (2, 2)
+B = np.array([[5], [6]])        # shape = (2, 1)
+np.einsum("mn,nr -> mnr", A, B) # => [ [[5], [12]], [[15],[24]] ]
+np.einsum("mn,nr -> mr", A, B)  # => [    [17],         [39]    ]
+np.matmult(A, B)                # => [    [17],         [39]    ]
+A @ B                           # => [    [17],         [39]    ]
+```
+
+`A` has two axes. Let's call them `m` and `n`. `B` has two axes. Let's call
+them `q` and `r`. Recall that to multiply two matrices `A` and `B`, element
+`(i,j)` of the product is the result of multiplying row `i` of `A` and column
+`j` of `B`. To indicate this to `einsum`, we need to label the axes of the
+corresponding arrays with the same label. Note that using the label only
+implies multiplication. To add the results, the label must be omitted from the
+right-hand side.
+
+For the inner product of two matrices `A` and `B`, element
+`(i,j)` of the product is the result of multiplying row `i` of A and row `j`
+of B.
+
+```python
+A = np.array([[1, 2], [2, 1]])
+B = np.array([[1, 2], [3, 4]])
+np.einsum("mn,on -> mo", A, B) # => [ [ 5, 11], [4, 10] ]
+np.inner(A, B)                 # => [ [ 5, 11], [4, 10] ]
+```
+
+The inner product of two vectors:
+
+```python
+A = np.array([1, 2])
+np.einsum("i, i -> ", A, A) # => 5
+np.inner(A, A)              # => 5
+np.dot(A, A)                # => 5
+```
+
+The outer product of two vectors:
+
+```python
+A = np.array([1, 2])
+np.einsum("i, j -> ij", A, A) # => [ [1, 2], [2, 4] ]
+np.outer(A, A)                # => [ [1, 2], [2, 4] ]
+```
+
+### Transpose
+
+```python
+A = np.ones((2, 3))       # shape = (2, 3)
+np.einsum("ij -> ji", A)  # shape = (3, 2)
+```
+
+### Diagonal Elements
+
+```python
+A = np.diag((1, 2, 3))
+# Extract elements along the diagonal
+np.einsum("ii -> i", A) # => [1, 2, 3]
+# sum elements along the diagonal
+np.einsum("ii -> ", A)  # => 6
+```
+
+
+
+`
