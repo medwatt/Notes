@@ -160,18 +160,18 @@ arr2 = np.load('data.npy')
 #### NPZ Format
 
 Save several arrays into a single file in
-[uncompressed](https://numpy.org/doc/stable/reference/generated/numpy.savez_compressed.html)
+[compressed](https://numpy.org/doc/stable/reference/generated/numpy.savez_compressed.html)
 `.npz` format.
 
 ```python
 arr1 = np.array([0, 1, 2, 3, 4])
 arr2 = np.array([5, 6, 7, 8, 9])
 # save arrays to npz file
-np.savez_compressed('data.npy', key_name_1=arr1, key_name_2=arr2)
+np.savez_compressed('data.npz', some_keyname_1=arr1, some_keyname_2=arr2)
 # load arrays from npy file
-data_dict = np.load('data.npy')
-arr3 = data_dict['key_name_1']
-arr4 = data_dict['key_name_2']
+data_dict = np.load('data.npz')
+arr3 = data_dict['some_keyname_1']
+arr4 = data_dict['some_keyname_2']
 ```
 
 ### Printing Options
