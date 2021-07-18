@@ -55,25 +55,67 @@ array.
 mat3.astype(np.int8) # => [[1, 2] [4, -1]]
 ```
 
-We can generate an array of numbers starting from 1, up to, but not
-including 10 with a step of 2 using
-[`np.range`](https://numpy.org/doc/stable/reference/generated/numpy.arange.html):
+### Array Creating Functions
+
+An array can be constructed by any of the array-creation routines found
+[here](https://numpy.org/doc/stable/reference/routines.array-creation.html).
+The most common ones are presented below.
+
+#### `np.arange`
+
+We can generate an array in the half-open interval `[start, stop)` with
+evenly-spaced (`step`) values using `np.arange`.
 
 ```python
-# np.arange([start, ] stop [, step])
+# np.arange([start=0, ] stop [, step=1])
 np.arange(1, 10, 2) # => [1, 3, 5, 7, 9]
 ```
 
-We can also generate an array of evenly spaced numbers starting from 1 and
-ending at 10, having a total of 4 values using
-[`np.linspace`](https://numpy.org/doc/stable/reference/generated/numpy.linspace.html):
+#### `np.linspace`
+
+We can generate an array of `num` evenly-spaced numbers in the closed-interval
+`[start, stop]` using `np.linspace`.
 
 ```python
 # np.linspace(start, stop, num=50, endpoint=True)
-np.linspace(1, 10, 4) # => [1.,  4.,  7., 10.]
+np.linspace(1, 10, num=4) # => [1.,  4.,  7., 10.]
 ```
 
-Some common functions for creating arrays:
+A similar function is `np.logspace`, which returns numbers spaced evenly on a
+log scale.
+
+```python
+np.logspace(1, 4, num=4)       # => [10.,  100.,  1000., 10000.]
+10 ** np.linspace(1, 4, num=4) # => [10.,  100.,  1000., 10000.]
+```
+
+#### `np.meshgrid`
+
+We can create a rectangular grid out of an array of `x` values and an array of
+`y` values using `np.meshgrid`. Creation of these rectangular grids is useful
+for a number of tasks, such as sampling a function `f(x, y)` over a range of
+values of `x` and `y`.
+
+```python
+x = np.arange(1, 4, 1) # => [1, 2, 3]
+y = np.arange(5, 8, 1) # => [5, 6, 7]
+# np.meshgrid(x, y, sparse=False)
+xx, yy = np.meshgrid(x, y)
+z = np.sin(xx**2 + yy**2) / (xx**2 + yy**2)
+```
+
+This would result in the following `xx` and `yy` matrices, such that the
+pairing of the corresponding element in each matrix gives the `x` and `y`
+coordinates of a point in the grid.
+
+```python
+xx = np.array([[1, 2, 3], [1, 2, 3], [1, 2, 3]])
+yy = np.array([[5, 5, 5], [6, 6, 6], [7, 7, 7]])
+```
+
+#### Others
+
+Some common functions for creating arrays include:
 
 ```python
 np.zeros(4)          # 1D array of zeros
@@ -84,10 +126,61 @@ np.eye(4)            # 4x4 identity array
 np.diag((1, 2, 3))   # 3x3 diagonal array
 ```
 
-We can print out the content of a NumPy array using the `print` function. If an
-array is too large to be printed, NumPy automatically skips the central part of
-the array and only prints the corners. To disable this behaviour and force
-NumPy to print the entire array:
+### Saving Arrays
+
+#### CSV Format
+
+Save an array to
+a [text](https://numpy.org/doc/stable/reference/generated/numpy.savetxt.html)
+file. If the filename ends in `.gz`, the file is automatically saved in
+compressed gzip format.
+
+```python
+arr = np.array([0, 1, 2, 3, 4, 5])
+# save array to csv file
+np.savetxt('data.csv', arr, delimiter=',')
+# load array from csv file
+arr2 = np.loadtxt('data.csv', delimiter=',')
+```
+
+#### NPY Format
+
+Save an array to
+a [binary](https://numpy.org/doc/stable/reference/generated/numpy.save.html)
+file in NumPy `.npy` format.
+
+```python
+arr = np.array([0, 1, 2, 3, 4, 5])
+# save array to npy file
+np.save('data.npy', arr)
+# load array from npy file
+arr2 = np.load('data.npy')
+```
+
+#### NPZ Format
+
+Save several arrays into a single file in
+[uncompressed](https://numpy.org/doc/stable/reference/generated/numpy.savez_compressed.html)
+`.npz` format.
+
+```python
+arr1 = np.array([0, 1, 2, 3, 4])
+arr2 = np.array([5, 6, 7, 8, 9])
+# save arrays to npz file
+np.savez_compressed('data.npy', key_name_1=arr1, key_name_2=arr2)
+# load arrays from npy file
+data_dict = np.load('data.npy')
+arr3 = data_dict['key_name_1']
+arr4 = data_dict['key_name_2']
+```
+
+### Printing Options
+
+We can print out the content of a NumPy array using the
+[`print`](https://numpy.org/doc/stable/reference/generated/numpy.set_printoptions.html)
+function. If an array is too large to be printed, NumPy automatically skips the
+central part of the array and only prints the corners. To disable this
+behaviour and force NumPy to print the entire array:
 
 ```python
 import sys
@@ -129,8 +222,8 @@ country column with `population_table['country']`. This returns a 1D array.
 
 # Random Numbers
 
-We can also create arrays with **random** elements. We first need to import
-the `random` submodule:
+We can create arrays with **random** elements. We first need to import the
+`random` submodule:
 
 ```python
 from numpy import random
@@ -386,6 +479,9 @@ row = arr[np.newaxis, :] # shape = (1,4)
 col = arr[:, np.newaxis] # shape = (4,1)
 ```
 
+Note that `np.newaxis` is an alias for `None`. Therefore, `arr[:, np.newaxis]`
+is the same as `arr[:, None]`, but `arr[:, np.newaxis]` is more explicit.
+
 ### expand_dims
 
 `np.expand_dims(arr, axis)` inserts a new axis that will appear at the `axis`
@@ -503,41 +599,6 @@ effect achieve the same result.
     We first convert `x1` to an array of shape `(5, 1)`. Since the dimensions
     have to agree, `x2` is "stretched" to an array of shape `(5, 3)`. `x1` is
     then "stretched" to an array of shape `(5, 3)`.
-
-# Saving Arrays
-
-## CSV Format
-
-```python
-arr = np.array([0, 1, 2, 3, 4, 5])
-# save array to csv file
-np.savetxt('data.csv', data, delimiter=',')
-# load array from csv file
-arr = np.loadtxt('data.csv', delimiter=',')
-```
-
-## NPY Format
-
-```python
-arr = np.array([0, 1, 2, 3, 4, 5])
-# save array to npy file
-np.save('data.npy', data)
-# load array from npy file
-arr = np.load('data.npy')
-```
-
-## NPZ Format
-
-```python
-arr1 = np.array([0, 1, 2, 3, 4])
-arr2 = np.array([5, 6, 7, 8, 9])
-# save arrays to npz file
-np.savez_compressed('data.npy', key_name_1=arr1, key_name_2=arr2)
-# load arrays from npy file
-data_dict = np.load('data.npy')
-arr1 = data_dict['key_name_1']
-arr2 = data_dict['key_name_2']
-```
 
 # Universal Functions
 
