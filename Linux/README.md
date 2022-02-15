@@ -67,11 +67,59 @@ distro's repos, but I prefer building it to enable a few options.
     IFS=$'\n'; read -d '' -r -a files < /tmp/vlc.m3u; vlc "${files[@]}"
     ```
 
+### Miniconda setup
+
+#### Installing
+
+- Download `miniconda` from [here](https://docs.conda.io/en/latest/miniconda.html#linux-installers).
+- Make it executable and install.
+- To prevent `miniconda` from initializing automatically when I a terminal is started,
+  remove the code that is used to start `miniconda` and put it in a separate file,
+  which can be sourced with an `alias`.
+    - Save the script below in a file (change `<user>` to yours).
+    - Create an alias to the file in your `bashrc`: `alias
+      mini="path_to_miniconda_setup.sh`"
+
+    ```bash
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/home/<user>/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/home/<user>/miniconda3/etc/profile.d/conda.sh" ]; then
+            . "/home/<user>/miniconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/home/<user>/miniconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+    ```
+
+#### Useful commands for managing environments
+
+Miniconda creates a `base` environment by default. The only thing I install in
+the `base` environment is `jupyter lab` so that I don't have to install it in
+all other environments.
+
+- To install jupyter lab: `conda install -c conda-forge jupyterlab`
+
+I now create environments with different packages.
+
+- For example, to create an environment called `work`: `conda create -n work`
+- Activate environment: `conda activate work`
+- Install packages in this environment: `conda install -c conda-forge <packages...>`
+- Install the `ipykernel` to use environment with `jupyter lab`: `conda install ipykernel`
+- Make kernel discoverable (the files will be placed in `~/.local/share/jupyter/kernels/`): `ipython kernel install --user --name=work`
+- Deactivate environment: `conda deactivate`
+- After installing packages, you can remove the downloaded files by running: `conda clean -a`
+
 ## System
 
 ### Shut down hard drive when not in use
 
-I have a 2TB hdd connected to the second storage bay of my laptop. I access it
+I have a 2TB HDD connected to the second storage bay of my laptop. I access it
 once in a while. It spins constantly and drives me insane. So, let's shut it
 down after 2min 15s of not accessing it.
 
