@@ -73,12 +73,11 @@ distro's repos, but I prefer building it to enable a few options.
 
 - Download `miniconda` from [here](https://docs.conda.io/en/latest/miniconda.html#linux-installers).
 - Make it executable and install.
-- To prevent `miniconda` from initializing automatically when I a terminal is started,
+- To prevent `miniconda` from initializing automatically when a terminal is started,
   remove the code that is used to start `miniconda` and put it in a separate file,
   which can be sourced with an `alias`.
     - Save the script below in a file (change `<user>` to yours).
-    - Create an alias to the file in your `bashrc`: `alias
-      mini="path_to_miniconda_setup.sh`"
+    - Create an alias to the file in your `bashrc`: `alias mini="path_to_miniconda_setup.sh`"
 
     ```bash
     # >>> conda initialize >>>
@@ -158,3 +157,16 @@ down after 2min 15s of not accessing it.
     <your_username> ALL = NOPASSWD: /usr/bin/some_command
     <your_username> ALL = NOPASSWD: /bin/systemctl start some_service.service
     ```
+
+### Changing user shell
+
+- List all installed shells: `cat /etc/shells`
+
+Let's say we want to change the default shell to to `/bin/sh`. There are two
+ways to do that:
+
+1. Using `chsh`: `chsh --shell /bin/sh <username>`
+2. Using `usermod`: `sudo usermod --shell /bin/sh <username>`
+
+We can verify that the shell has been changed by checking `<username>` in the
+`/etc/passwd` file. You need to logout for the change to take effect.
