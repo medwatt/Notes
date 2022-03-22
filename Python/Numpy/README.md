@@ -55,6 +55,26 @@ array.
 mat3.astype(np.int8) # => [[1, 2] [4, -1]]
 ```
 
+### Data types
+
+Below is a list of all data types in NumPy and the characters used to represent them.
+
+- `i` \- integer
+- `b` \- boolean
+- `u` \- unsigned integer
+- `f` \- float
+- `c` \- complex float
+- `m` \- timedelta
+- `M` \- datetime
+- `O` \- object
+- `S` \- string
+- `U` \- unicode string
+- `V` \- fixed chunk of memory for other type ( void )
+
+For `i`, `u`, `f`, `S` and `U` we can define size as well. For example `i1` is
+the same as `int8`, `i2` is the same as `int16`, `S10` is a string of 10
+characters, and so on.
+
 ### Array Creating Functions
 
 An array can be constructed by any of the array-creation routines found
@@ -104,7 +124,7 @@ xx, yy = np.meshgrid(x, y)
 z = np.sin(xx**2 + yy**2) / (xx**2 + yy**2)
 ```
 
-This would result in the following `xx` and `yy` matrices, such that the
+This will result in the following `xx` and `yy` matrices, such that the
 pairing of the corresponding element in each matrix gives the `x` and `y`
 coordinates of a point in the grid.
 
@@ -703,23 +723,31 @@ np.sum(a, axis=1)        # => [6, 15]
 
 Some useful unary functions are:
 
-- `np.mean`: computes arithmetic average
-- `np.std`: computes the standard deviation
-- `np.var`: computes the variance
+- `np.mean`: computes the arithmetic average
+- `np.std`: computes the standard deviation (use `ddof=1` for unbiased estimate)
+- `np.var`: computes the variance (use `ddof=1` for unbiased estimate)
 - `np.sort`: sorts an array
 - `np.argsort`: returns indices showing how to sort array
 - `np.min`: returns the minimum value of an array
 - `np.max`: returns the maximum value of an array
 - `np.argmin`: returns the index of the minimum value
 - `np.argmax`: returns the index of the maximum value
+- `np.bincount`: returns the number of occurrences of each value in array
+- `np.unique`: returns the unique elements of an array
+- `np.histogram`: computes the histogram of a dataset
 - `np.array_equal`: checks if two arrays have the same shape and elements
 
 For example:
 
 ```python
-a = np.array([5, 8, 1, 3])
-np.argsort(a)    # => [2, 3, 0, 1]
-a[np.argsort(a)] # => [1, 3, 5, 8]
+a = np.array([1, 5, 8, 1, 3])
+
+np.argsort(a)    # => [0, 3, 4, 1, 2]
+a[np.argsort(a)] # => [1, 1, 3, 5, 8]
+
+np.bincount(a)   # => [0, 2, 0, 1, 0, 1, 0, 0, 1]
+
+values, counts = np.unique(a, return_counts=True) # => values = [1, 3, 5, 8], counts = [2, 1, 1, 1]
 ```
 
 # Linear Algebra
