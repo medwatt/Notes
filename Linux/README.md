@@ -107,6 +107,7 @@ all other environments.
 I now create environments with different packages.
 
 - For example, to create an environment called `work`: `conda create -n work`
+- To remove an environment call `work`: `conda remove --name work --all`
 - Activate environment: `conda activate work`
 - Install packages in this environment: `conda install -c conda-forge <packages...>`
 - Install the `ipykernel` to use environment with `jupyter lab`: `conda install ipykernel`
@@ -154,8 +155,8 @@ down after 2min 15s of not accessing it.
   format shown below:
 
     ```bash
-    <your_username> ALL = NOPASSWD: /usr/bin/some_command
-    <your_username> ALL = NOPASSWD: /bin/systemctl start some_service.service
+    <username> ALL = NOPASSWD: /usr/bin/some_command
+    <username> ALL = NOPASSWD: /bin/systemctl start some_service.service
     ```
 
 ### Changing user shell
@@ -168,5 +169,6 @@ ways to do that:
 1. Using `chsh`: `chsh --shell /bin/sh <username>`
 2. Using `usermod`: `sudo usermod --shell /bin/sh <username>`
 
-We can verify that the shell has been changed by checking `<username>` in the
-`/etc/passwd` file. You need to logout for the change to take effect.
+We can verify that the shell has been changed by checking the entry for
+`<username>` in the `/etc/passwd` file. You need to logout for the change to
+take effect.
