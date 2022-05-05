@@ -763,12 +763,11 @@ for nrows, ncols, plot_number in X:
 ## Scatter Plots
 
 ```python
-fig, ax = plt.subplots()
-
 # generate 20 random integers from 0 to 100
 X = np.random.randint(0, 100, (20,))
 Y = np.random.randint(0, 100, (20,))
 
+fig, ax = plt.subplots()
 ax.scatter(X, Y, s=42) # s is the size of the point
 ```
 
@@ -787,14 +786,42 @@ plt.show()
 
 ![](./media/scatter_plot_2.svg)
 
+
+## Drawing Trendlines
+
+```python
+from scipy.optimize import curve_fit
+
+# function that defines the curve to fit data with
+func = lambda x, a, b, c: a * np.exp(-b * x) + c
+
+# generate test data
+x = np.linspace(0, 5, 100)
+y = np.exp(-x) + 0.5 * np.random.rand(x.shape[0])
+
+# fit curve to data
+# -> popt: optimal values for the parameters
+# -> pcov: estimated covariance of popt
+popt, pcov = curve_fit(func, x, y)
+
+# plot test data and fitted curved
+fig, ax = plt.subplots()
+ax.plot(x, y, color='gray', linestyle='--')
+ax.plot(x, func(x, *popt), color='blue', linewidth=2.0)
+plt.show()
+```
+
+![](./media/trendline_1.svg)
+
+
 ## Polar Plots
 
 ```python
-fig, ax = plt.subplots(1, 2, subplot_kw=dict(polar=True))
-
 theta = np.arange(0, 2*np.pi, 0.01)
 r1 = np.sin(6*theta)
 r2 = np.cos(6*theta)
+
+fig, ax = plt.subplots(1, 2, subplot_kw=dict(polar=True))
 
 ax[0].plot(theta, r1, lw=3, color="red")
 ax[0].plot(theta, r2, lw=3, color="green")
