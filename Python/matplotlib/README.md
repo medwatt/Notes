@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 ```
 
-## OO Interface vs PyPlot Interface
+## OO Interface vs. PyPlot Interface
 
 There are two approaches when using `matplotlib`:
 
@@ -451,7 +451,7 @@ unless otherwise specified.
 `xticks` is a method which can be used to get or to set the current tick
 locations and the labels. The same is true for `yticks`:
 
-```Python
+```python
 # get xticks and xticklabels
 xticks = ax.get_xticks()
 xticklabels = ax.get_xticklabels()
@@ -837,24 +837,24 @@ fig.tight_layout()
 
 ## Stem Plots
 
-A stem plot plots vertical lines at each x location from the baseline to y, and
-places a marker there.
-
 ```python
+x = np.linspace(0.1, 2 * np.pi, 41)
+y = np.sin(x) + 2
+
 fig, ax = plt.subplots()
 
-x = np.linspace(0.1, 2 * np.pi, 41)
-y = np.sin(x)
+markerline, stemlines, baseline = ax.stem(x, y, bottom=2)
+stemlines.set_color('black')
+markerline.set_markersize(5.0)
+baseline.set_color('black')
 
-ax.stem(x, y, linefmt='r--', # line format
-              markerfmt='go', # marker format
-              bottom=0, # position of the baseline
-              basefmt= 'b-', # baseline format
-              use_line_collection=True # for performance
-       )
+plt.show()
 ```
 
-![](./media/stem_plot.svg)
+![](./media/stem_plot1.svg)
+
+
+[Reference](https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.pyplot.stem.html)
 
 ## Step Plots
 

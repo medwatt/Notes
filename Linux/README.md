@@ -172,3 +172,9 @@ ways to do that:
 We can verify that the shell has been changed by checking the entry for
 `<username>` in the `/etc/passwd` file. You need to logout for the change to
 take effect.
+
+### vmware
+
+Enable 3D acceleration:
+
+Add to the file  ~/.vmware/preferences `mks.gl.allowBlacklistedDrivers = "TRUE"`
