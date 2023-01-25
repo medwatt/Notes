@@ -76,7 +76,7 @@ distro's repos, but I prefer building it to enable a few options.
 - To prevent `miniconda` from initializing automatically when a terminal is started,
   remove the code that is used to start `miniconda` and put it in a separate file,
   which can be sourced with an `alias`.
-    - Save the script below in a file (change `<user>` to yours).
+    - Save the script below in a file (change `<user>` to the username you're using).
     - Create an alias to the file in your `bashrc`: `alias mini="path_to_miniconda_setup.sh`"
 
     ```bash
@@ -96,24 +96,39 @@ distro's repos, but I prefer building it to enable a few options.
     # <<< conda initialize <<<
     ```
 
-#### Useful commands for managing environments
+#### Managing environments
 
-Miniconda creates a `base` environment by default. The only thing I install in
-the `base` environment is `jupyter lab` so that I don't have to install it in
-all other environments.
+Miniconda creates a `base` environment by default. For some reason, even when
+you download and install the latest version, the `conda` version you get is
+already out of date.
+
+- To update `conda` in the `base` environment: `conda update -n base -c defaults conda`
+
+The only thing I install in the `base` environment is `jupyter lab` so that
+I don't have to install it in all other environments.
 
 - To install jupyter lab: `conda install -c conda-forge jupyterlab`
 
-I now create environments with different packages.
+Let's now start create a new environment and install some packages.
 
-- For example, to create an environment called `work`: `conda create -n work`
-- To remove an environment call `work`: `conda remove --name work --all`
-- Activate environment: `conda activate work`
-- Install packages in this environment: `conda install -c conda-forge <packages...>`
+- To create a new environment: `conda create -n <environment_name>`
+- Activate the environment: `conda activate <environment_name>`
+- Install packages in the environment: `conda install -c conda-forge <list of packages>`
 - Install the `ipykernel` to use environment with `jupyter lab`: `conda install ipykernel`
-- Make kernel discoverable (the files will be placed in `~/.local/share/jupyter/kernels/`): `ipython kernel install --user --name=work`
+- Make the kernel discoverable: `ipython kernel install --user --name=<environment_name>`
+    - This places some files in `~/.local/share/jupyter/kernels/`
 - Deactivate environment: `conda deactivate`
-- After installing packages, you can remove the downloaded files by running: `conda clean -a`
+
+Other useful stuff:
+
+- After installing packages, you can remove the installation files by running: `conda clean -a`
+- To delete an environment called `work`: `conda remove --name work --all`
+
+#### matplotlib interractive plots
+
+- `sudo pacman -S python-pyqt5`
+- Install in the environment you want to use: `mamba install ipympl`
+- Install matplotlib jupyter lab extension.
 
 ## System
 
@@ -178,3 +193,13 @@ take effect.
 Enable 3D acceleration:
 
 Add to the file  ~/.vmware/preferences `mks.gl.allowBlacklistedDrivers = "TRUE"`
+
+### docker
+
+To change docker root directory:
+
+- Stop the docker daemon: `sudo systemctl stop docker.service`
+- Create/edit `/etc/docker/daemon.json` and `add { "data-root": "/path/to/your/new/docker/root"}`
+- Copy the current data directory to the new location: `sudo cp -rp /var/lib/docker/* "/path/to/your/new/docker/root/"`
+- Rename or delete the old docker directory: `sudo mv /var/lib/docker /var/lib/docker.old`
+- Restart the docker daemon: `sudo systemctl restart docker.service`

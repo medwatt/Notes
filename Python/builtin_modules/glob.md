@@ -1,8 +1,8 @@
 # glob
 
-The [`glob`](https://docs.python.org/3/library/glob.html) provides functions
-for matching files and directories using glob patterns. Glob patterns are
-similar to regular expressions, but simpler.
+The [`glob`](https://docs.python.org/3/library/glob.html) module provides
+functions for matching files and directories using glob patterns. Glob
+patterns are similar to regular expressions, but simpler.
 
 Here are some common glob patterns and examples of how they can be used to
 match files and directories.
