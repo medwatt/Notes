@@ -9,18 +9,8 @@ the following:
 
 - Double click closes tab: `browser.tabs.closeTabByDblclick`
 - Open bookmarks in a new tab: `browser.tabs.loadBookmarksInTabs`
-- Disable those irritating auto play videos: `media.autoplay.default`; set it to 5
+- Disable those irritating autoplay videos: change `media.autoplay.default` to 5
 - Enable hardware acceleration in Firefox v>=96: `media.ffmpeg.vaapi.enabled`
-
-### Build nnn from source
-
-`nnn` is my favourite command-line file manager. You can get it from your
-distro's repos, but I prefer building it to enable a few options.
-
-- Clone the `nnn` repo: `git clone https://github.com/jarun/nnn`
-- Enter the `nnn` repo: `cd nnn`
-- Build with the following options: `make O_NERD=1 O_PCRE=1 O_CTX8=1`
-- Install: `sudo make install`
 
 ### Add all files in a folder to a playlist in VLC
 
@@ -66,6 +56,16 @@ distro's repos, but I prefer building it to enable a few options.
     # launch playlist
     IFS=$'\n'; read -d '' -r -a files < /tmp/vlc.m3u; vlc "${files[@]}"
     ```
+
+### Build nnn from source
+
+`nnn` is my favourite command-line file manager. You can get it from your
+distro's repos, but I prefer building it to enable a few options.
+
+- Clone the `nnn` repo: `git clone https://github.com/jarun/nnn`
+- Enter the `nnn` repo: `cd nnn`
+- Build with the following options: `make O_NERD=1 O_PCRE=1 O_CTX8=1`
+- Install: `sudo make install`
 
 ### Miniconda setup
 
@@ -203,3 +203,65 @@ To change docker root directory:
 - Copy the current data directory to the new location: `sudo cp -rp /var/lib/docker/* "/path/to/your/new/docker/root/"`
 - Rename or delete the old docker directory: `sudo mv /var/lib/docker /var/lib/docker.old`
 - Restart the docker daemon: `sudo systemctl restart docker.service`
+
+## ssh authentication
+
+**SSH** (Secure Shell) is a secure protocol used to remotely log into and execute
+commands on a computer. One of the main features of SSH is secure
+authentication, which ensures that only authorized users are able to access a
+system.
+
+There are two main methods of authentication in SSH: password-based
+authentication and public key authentication.
+
+**Password-based** authentication is the simplest and most common form of
+authentication in SSH. It works by prompting the user to enter their username
+and password, which are then transmitted to the server and checked against the
+stored user credentials. If the username and password match, the user is
+granted access.
+
+**Public key** authentication, on the other hand, uses a pair of cryptographic
+keys – a public key and a private key – to authenticate the user. The public
+key is stored on the server, and the private key is stored on the client
+machine. When the user tries to log in to the server, the server generates a
+challenge and encrypts it with the user's public key. The client then uses its
+private key to decrypt the challenge and sends the decrypted challenge back to
+the server. If the decrypted challenge matches the original challenge, the user
+is granted access.
+
+Public key authentication provides several advantages over password-based
+authentication, including stronger security and the ability to automate login
+processes. However, it also requires more setup and configuration, as the
+public and private keys need to be generated and properly distributed.
+
+Public key authentication in SSH can be set up in several ways. The most
+straight-forward way is given below.
+
+1. Generate a public/private key pair on your local machine:
+
+    ```bash
+    ssh-keygen -t rsa -b 4096
+    ```
+
+    The `ssh-keygen` command will prompt you for a location to store the key
+    pair. By default, the keys will be stored in `~/.ssh/id_rsa` and
+    `~/.ssh/id_rsa.pub`.
+
+2. Copy the public key to the server:
+
+    ```bash
+    ssh-copy-id username@server_ip_or_hostname
+    ```
+
+    Replace `username` with your username on the server and
+    `server_ip_or_hostname` with the IP address or hostname of the server.
+    You'll be prompted for your password to complete the copy process.
+
+3. Test the public key authentication:
+
+    ```bash
+    ssh username@server_ip_or_hostname
+    ```
+
+    If the public key authentication is set up correctly, you should be able to
+    log in to the server without being prompted for a password.
