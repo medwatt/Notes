@@ -43,7 +43,7 @@ plt.ylim(0, 3)
 plt.grid(True)
 ```
 
-![Figure generated from pyplot interface](./media/pyplot_interface.svg)
+![Figure generated from pyplot interface](./images/pyplot_interface.svg)
 
 ## Object-Oriented Interface
 
@@ -52,12 +52,12 @@ of matplotlib objects is the `figure` object. A figure can be seen as the
 container which contains one or more **plots**. The plots are called `axes` in
 matplotlib. The following diagram shows a `figure` with four `axes`:
 
-![A figure object with four axes](./media/fig1.png)
+![A figure object with four axes](./images/fig1.png)
 
 Similar important terms include `Axis`, `Tick`, and `Spine`. Their function and
 meaning are easy to grasp by looking at the figure below:
 
-![Axis, Tick, and Spine](./media/fig2.png)
+![Axis, Tick, and Spine](./images/fig2.png)
 
 ### Simple Plots
 
@@ -85,7 +85,7 @@ ax.set_title('title')
 plt.show()
 ```
 
-![A plot of $y=x^2$](./media/simple_plot.svg)
+![A plot of $y=x^2$](./images/simple_plot.svg)
 
 We can easily add more than one `axes` to the figure and control where they are
 placed.
@@ -113,7 +113,7 @@ ax2.set_ylabel('x')
 ax2.set_title('inside axes')
 ```
 
-![A plot inside a plot](./media/plot_inside_plot.svg)
+![A plot inside a plot](./images/plot_inside_plot.svg)
 
 If we don't care about the precise locations where the `axes` are placed in the
 `figure` canvas, then we can use one of the many `axes` layout managers in
@@ -140,7 +140,7 @@ xmin, xmax, ymin, ymax = 0, 10, 14, 45
 ax.axis([xmin, xmax, ymin, ymax])
 ```
 
-![Two axes in one plot](./media/basic1.svg)
+![Two axes in one plot](./images/basic1.svg)
 
 ## Saving figures
 
@@ -263,7 +263,7 @@ ax.set_ylabel(r'$y$', fontsize=18)
 ax.set_title('title')
 ```
 
-![](./media/latex_labelling.svg)
+![](./images/latex_labelling.svg)
 
 We can also change the global font size and font family, which applies to
 all text elements in a figure (tick labels, axis labels and titles, legends,
@@ -289,7 +289,7 @@ ax.set_ylabel(r'$y$')
 ax.set_title('title')
 ```
 
-![](./media/latex_labelling_2.svg)
+![](./images/latex_labelling_2.svg)
 
 
 ## Colors, Linewidths, and Linestyles
@@ -322,7 +322,7 @@ ax.plot(x, x+2, color="#1155dd")        # RGB hex code for a bluish color
 ax.plot(x, x+3, color="#15cc55")        # RGB hex code for a greenish color
 ```
 
-![Setting plot color](./media/line_colors.svg)
+![Setting plot color](./images/line_colors.svg)
 
 ### Line and marker styles
 
@@ -340,7 +340,7 @@ ax.plot(x, x+4, color="purple", lw=1, ls='-', marker='s', markersize=8,
         markerfacecolor="yellow", markeredgewidth=2, markeredgecolor="blue")
 ```
 
-![Line styles](./media/line_styles.svg)
+![Line styles](./images/line_styles.svg)
 
 The following format string characters are accepted to control the line style:
 `-` (solid line), `--` (dashed line), `-.` (dash-dot line), and `:` (dotted
@@ -381,7 +381,7 @@ axes[2].set_xlim([2, 5])
 axes[2].set_title("custom axes range");
 ```
 
-![Plot range](./media/plot_range.svg)
+![Plot range](./images/plot_range.svg)
 
 ### Logarithmic scale
 
@@ -402,13 +402,13 @@ axes[1].set_yscale("log")
 axes[1].set_title("Logarithmic scale (y)")
 ```
 
-![Axis scale](./media/log_scale.svg)
+![Axis scale](./images/log_scale.svg)
 
 ## Spines
 
 The naming of the spines are given in the figure below.
 
-![Spines](./media/fig3.png)
+![Spines](./images/fig3.png)
 
 We can make the top and right spine invisible and move the bottom and left one
 to the $(0, 0)$ coordinate to build a classical coordinate system.
@@ -441,7 +441,7 @@ ax.legend()
 ax.grid()
 ```
 
-![](./media/spine1.svg)
+![](./images/spine1.svg)
 
 ## Customizing the Ticks
 
@@ -497,7 +497,7 @@ ax.legend()
 ax.grid()
 ```
 
-![](./media/spine2.svg)
+![](./images/spine2.svg)
 
 There is an easier way to set the values of the `xticks` so that we do not have
 to calculate them manually. We use `plt.MultipleLocator` with `np.pi/2` as argument:
@@ -537,7 +537,7 @@ ax.set_xticklabels(labels)
 ax.grid()
 ```
 
-![](./media/ticks1.svg)
+![](./images/ticks1.svg)
 
 
 ### Adjusting the ticklabels
@@ -570,7 +570,7 @@ for ytick in ax.get_yticklabels():
 ax.grid()
 ```
 
-![](./media/ticks2.svg)
+![](./images/ticks2.svg)
 
 ## Sharing an Axis
 
@@ -593,7 +593,7 @@ for label in ax2.get_yticklabels():
     label.set_color("red")
 ```
 
-![](./media/twin1.svg)
+![](./images/twin1.svg)
 
 ## Axis position adjustments
 
@@ -623,7 +623,7 @@ axes[1].plot(x, x**2, x, x**3, lw=2)
 axes[1].grid(color='b', alpha=0.5, linestyle='dashed', linewidth=0.5)
 ```
 
-![](./media/axis_grid.svg)
+![](./images/axis_grid.svg)
 
 # Figures with multiple axes
 
@@ -671,7 +671,7 @@ for row in range(rows):
                           ha='center') # horizontal alignment
 ```
 
-![](./media/sub1.svg)
+![](./images/sub1.svg)
 
 
 ### Example 2
@@ -693,7 +693,7 @@ ax[1].text(0.5, 0.5,
               ha='center')
 ```
 
-![](./media/sub2.svg)
+![](./images/sub2.svg)
 
 
 ### Example 3
@@ -714,7 +714,7 @@ for nrows, ncols, plot_number in X:
     plt.subplot(nrows, ncols, plot_number)
 ```
 
-![](./media/sub3.svg)
+![](./images/sub3.svg)
 
 We can remove the ticks as shown below:
 
@@ -736,7 +736,7 @@ for nrows, ncols, plot_number in X:
     plt.yticks([])
 ```
 
-![](./media/sub5.svg)
+![](./images/sub5.svg)
 
 ```python
 X = [  (4,2,1), (4,2,2), (4,2,3), (4,2,5), (4,2,(4,6)), (4,1,4)]
@@ -746,7 +746,7 @@ for nrows, ncols, plot_number in X:
     plt.yticks([])
 ```
 
-![](./media/sub6.svg)
+![](./images/sub6.svg)
 
 ```python
 X = [ (3,1,1), (3,3,(4,5)), (3,3,7), (3,3,8), (3,3,(6,9))]
@@ -756,7 +756,7 @@ for nrows, ncols, plot_number in X:
     plt.yticks([])
 ```
 
-![](./media/sub7.svg)
+![](./images/sub7.svg)
 
 # Common 2D Plots
 
@@ -771,7 +771,7 @@ fig, ax = plt.subplots()
 ax.scatter(X, Y, s=42) # s is the size of the point
 ```
 
-![](./media/simple_scatter_plot.svg)
+![](./images/simple_scatter_plot.svg)
 
 ```python
 rng = np.random.RandomState(0) # fix the seed
@@ -784,7 +784,7 @@ plt.colorbar() # show color scale
 plt.show()
 ```
 
-![](./media/scatter_plot_2.svg)
+![](./images/scatter_plot_2.svg)
 
 
 ## Drawing Trendlines
@@ -811,7 +811,7 @@ ax.plot(x, func(x, *popt), color='blue', linewidth=2.0)
 plt.show()
 ```
 
-![](./media/trendline_1.svg)
+![](./images/trendline_1.svg)
 
 
 ## Polar Plots
@@ -833,7 +833,7 @@ ax[1].set_rticks([1,2,3,4])
 fig.tight_layout()
 ```
 
-![](./media/polar_plot.svg)
+![](./images/polar_plot.svg)
 
 ## Stem Plots
 
@@ -851,7 +851,7 @@ baseline.set_color('black')
 plt.show()
 ```
 
-![](./media/stem_plot1.svg)
+![](./images/stem_plot1.svg)
 
 
 [Reference](https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.pyplot.stem.html)
@@ -874,7 +874,7 @@ plt.plot(x, y, 'C2o', alpha=0.5)
 plt.legend(title='Parameter where:')
 ```
 
-![](./media/step_plot_1.svg)
+![](./images/step_plot_1.svg)
 
 
 ## Horizontal and Vertical Lines
@@ -890,7 +890,7 @@ fig, ax = plt.subplots()
 ax.hlines(y, xmin, xmax, colors=colors, lw=2)
 ```
 
-![](./media/hlines.svg)
+![](./images/hlines.svg)
 
 ```python
 fig, ax = plt.subplots()
@@ -920,7 +920,7 @@ ax.set_xlim(-1.1,1.1)
 ax.set_ylim(-1.1,1.1)
 ```
 
-![](./media/hvlines.svg)
+![](./images/hvlines.svg)
 
 ## Bar Plots
 
@@ -972,7 +972,7 @@ for i in range(len(values)):
 fig.tight_layout()
 ```
 
-![](./media/simple_bar_plot.svg)
+![](./images/simple_bar_plot.svg)
 
 
 ## Grouped Bar Plot
@@ -1017,7 +1017,7 @@ autolabel(rects2)
 fig.tight_layout()
 ```
 
-![](./media/grouped_bar_plot.svg)
+![](./images/grouped_bar_plot.svg)
 
 ### Stacked Bar Graph
 
@@ -1050,7 +1050,7 @@ ax.set_xticks(r)
 ax.set_xticklabels(names)
 ```
 
-![](./media/stacked_bar_plot.svg)
+![](./images/stacked_bar_plot.svg)
 
 ## Pie Plot
 
@@ -1068,7 +1068,7 @@ ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 ```
 
-![](./media/basic_pie_plot.svg)
+![](./images/basic_pie_plot.svg)
 
 ### Basic Donut Plot
 
@@ -1092,7 +1092,7 @@ fig.gca().add_artist(centre_circle)
 ax1.axis('equal')
 ```
 
-![](./media/basic_donut_plot.svg)
+![](./images/basic_donut_plot.svg)
 
 ## Histograms
 
@@ -1121,7 +1121,7 @@ axs[0].hist(x1, bins=n_bins1, density=True, color="green", ec="black")
 axs[1].hist(x2, bins=n_bins2, density=True)
 ```
 
-![](./media/basic_histogram_plot.svg)
+![](./images/basic_histogram_plot.svg)
 
 ### Histogram with multiple data sets
 
@@ -1153,4 +1153,4 @@ ax3.set_title('different sample sizes')
 fig.tight_layout()
 ```
 
-![](./media/multiple_histogram_plot.svg)
+![](./images/multiple_histogram_plot.svg)
