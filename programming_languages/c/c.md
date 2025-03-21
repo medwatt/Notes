@@ -31,7 +31,7 @@ C provides modifiers such as `short` or `long`, and `signed` or
 - For numeric types, the default is `signed`.
 
 - `int` can be omitted when using modifiers like `short` or `long`.
-  For example, `long var` instead of `long int var`.
+  For example, use `long var` instead of `long int var`.
 
 ### Integer Types
 
@@ -100,7 +100,8 @@ bool flag = true;  // flag is of type _Bool, strictly Boolean
 ### Floating Point Types
 
 C has three floating point types: `float`, `double`, and `long double`. A
-floating point constant that does not end with `f` has type `double`.
+floating point constant that does not end with `f` is considered a
+`double`.
 
 ```cpp
 float f = 0.314f;        // Suffix 'f' or 'F' indicates the type float
@@ -1010,17 +1011,17 @@ input, and working with files. To use these functions, include the
 
 ## Basic Functions
 
-- **`printf`**: Prints formatted output to `stdout`.
-- **`scanf`**: Reads formatted input from `stdin`.
-- **`puts`**: Writes a string to `stdout`, appending a newline.
-- **`gets`** (deprecated): Unsafe due to potential buffer overflow.
-- **`fgetc`**: Reads a character from a file.
-- **`fputc`**: Writes a character to a file.
-- **`fgets`**: Reads a string from a file.
-- **`fputs`**: Writes a string to a file.
-- **`fprintf`**: Like `printf`, but outputs to a file.
-- **`fscanf`**: Like `scanf`, but reads from a file.
-- **`fopen`, `fclose`, `fread`, `fwrite`, `fseek`, `ftell`**: File handling operations.
+- `printf`: Prints formatted output to `stdout`.
+- `scanf`: Reads formatted input from `stdin`.
+- `puts`: Writes a string to `stdout`, appending a newline.
+- `gets` (deprecated): Unsafe due to potential buffer overflow.
+- `fgetc`: Reads a character from a file.
+- `fputc`: Writes a character to a file.
+- `fgets`: Reads a string from a file.
+- `fputs`: Writes a string to a file.
+- `fprintf`: Like `printf`, but outputs to a file.
+- `fscanf`: Like `scanf`, but reads from a file.
+- `fopen`, `fclose`, `fread`, `fwrite`, `fseek`, `ftell`: File handling operations.
 
 ### `printf`
 
