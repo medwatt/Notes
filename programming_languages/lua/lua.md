@@ -213,16 +213,16 @@ extracting, or replacing parts of strings.
 
 | Class | Matches |
 | --- | --- |
-| %a | letters |
-| %c | control characters |
-| %d | digits |
-| %l | lowercase letters |
-| %p | punctuation |
-| %s | space characters |
-| %u | uppercase letters |
-| %w | alphanumeric |
-| %x | hexadecimal digits |
-| %z | null character |
+| `%a` | letters |
+| `%c` | control characters |
+| `%d` | digits |
+| `%l` | lowercase letters |
+| `%p` | punctuation |
+| `%s` | space characters |
+| `%u` | uppercase letters |
+| `%w` | alphanumeric |
+| `%x` | hexadecimal digits |
+| `%z` | null character |
 
 
 Uppercase versions (e.g. `%D`, `%W`) match the **opposite**.
@@ -327,7 +327,7 @@ for i = 1, 10 do
 end
 ```
 
-## Continue (simulated)
+### Continue (simulated)
 
 Lua doesn't have a built-in `continue`, but in Lua versions above 5.1,
 it can be simulated using `goto`.
